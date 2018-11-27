@@ -114,7 +114,6 @@
          placement="right"
           type="text"
           bsDatepicker
-
           [bsConfig]='datePickerConfig'
           name="dateOfBirth"
           [(ngModel)]="dateOfBirth"
@@ -123,6 +122,41 @@
         />
       </div>
     </div>
+          <!-- phone number -->
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input
+          type="text"
+          name="phoneNumber"
+          [(ngModel)]="phoneNumber"
+          class="form-control"
+          id="phoneNumber"
+        />
+      </div>
+      <!-- Preview -->
+      <div class="form-group">
+          <label for="photoPath">Photo Path</label>
+          <input
+            type="text"
+            name="photoPath"
+            [(ngModel)]="photoPath"
+            class="form-control"
+            id="photoPath"
+          />
+
+        </div>
+        <div class="form-group">
+          <img
+          [src]="photoPath"
+          height='200'
+          width='200'
+          *ngIf='previewPhoto'>
+        </div>
+        <button
+        type='button'
+        class='btn btn-primary'
+        (click)='togglePhotoPreview()'
+        >{{previewPhoto? "Hide":"Show"}} Preview</button>
     </div>
     <div class="panel-footer">
       <button type="submit" class="btn btn-primary">Save</button>
