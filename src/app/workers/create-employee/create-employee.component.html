@@ -1,28 +1,52 @@
-<form #workerForm="ngForm" (ngSubmit)="onSubmit(workerForm)">
+<form
+#workerForm="ngForm"
+ngNativeValidate
+(ngSubmit)="onSubmit(employee)">
   <div class="panel panel-primary">
     <div class="panel-heading"><h3 class="panel-title">Create Worker</h3></div>
     <div class="panel-body ">
       <!-- imie -->
-      <div class="form-group">
-        <label for="fullName">Full name</label>
+      <div class="form-group"
+      [class.has-success]="name.valid && name.touched"
+      [class.has-error]="name.invalid && name.touched">
+        <label
+        class='control-label'
+        for="namee">Full name</label>
         <input
           type="text"
-          name="fullName"
-          [(ngModel)]="fullName"
+          required
+          name="name"
+          [(ngModel)]="employee.name"
           class="form-control"
-          id="fullName"
+          id="name"
+          #name="ngModel"
         />
+        <span
+        class='help-block'
+        *ngIf="name.invalid && name.touched">wymagane</span>
       </div>
       <!-- email -->
-      <div class="form-group">
-        <label for="email">Email</label>
+      <div class="form-group"
+      [class.has-success]="email.valid && email.touched"
+      [class.has-error]="email.invalid && email.touched">
+        <label for="email"
+        class='control-label'>Email</label>
         <input
           type="text"
+          #email='ngModel'
+          required
+          [email]='employee.email!==""'
           name="email"
-          [(ngModel)]="email"
+          [(ngModel)]="employee.email"
           class="form-control"
           id="email"
         />
+        <span
+        class='help-block'
+        *ngIf="email.errors?.required && email.touched">Email wymagany</span>
+        <span
+        class='help-block'
+        *ngIf="email.errors?.email && email.touched">Email invalid</span>
       </div>
       <!-- phone number -->
       <div class="form-group">
@@ -30,7 +54,7 @@
         <input
           type="text"
           name="phoneNumber"
-          [(ngModel)]="phoneNumber"
+          [(ngModel)]="employee.phoneNumber"
           class="form-control"
           id="phoneNumber"
         />
@@ -44,7 +68,7 @@
               type="radio"
               value="phone"
               name="contactPreference"
-              [(ngModel)]="contactPreference"
+              [(ngModel)]="employee.contactPreference"
             />
             Phone
           </label>
@@ -53,7 +77,7 @@
               type="radio"
               value="mail"
               name="contactPreference"
-              [(ngModel)]="contactPreference"
+              [(ngModel)]="employee.contactPreference"
             />
             mail
           </label>
@@ -68,7 +92,7 @@
               type="radio"
               value="male"
               name="gender"
-              [(ngModel)]="gender"
+              [(ngModel)]="employee.gender"
             />
             Male
           </label>
@@ -77,7 +101,7 @@
               type="radio"
               value="female"
               name="gender"
-              [(ngModel)]="gender"
+              [(ngModel)]="employee.gender"
             />
             Female
           </label>
@@ -87,7 +111,10 @@
       <div class="form-group">
         <div class="form-control">
           <label class="checkbox-inline">
-            <input type="checkbox" name="isActive" [(ngModel)]="isActive" /> Is
+            <input
+            type="checkbox"
+            name="isActive"
+            [(ngModel)]="employee.isActive" /> Is
             Active
           </label>
         </div>
@@ -99,7 +126,7 @@
         class="form-control"
         id="department"
         name="department"
-        [(ngModel)]="department">
+        [(ngModel)]="employee.department">
         <option
         *ngFor='let dept of departments'
         [value]='dept.id'>{{dept.name}}</option>
@@ -116,7 +143,7 @@
           bsDatepicker
           [bsConfig]='datePickerConfig'
           name="dateOfBirth"
-          [(ngModel)]="dateOfBirth"
+          [(ngModel)]="employee.dateOfBirth"
           class="form-control"
           id="dateOfBirth"
         />
@@ -128,7 +155,7 @@
         <input
           type="text"
           name="phoneNumber"
-          [(ngModel)]="phoneNumber"
+          [(ngModel)]="employee.phoneNumber"
           class="form-control"
           id="phoneNumber"
         />
@@ -139,7 +166,7 @@
           <input
             type="text"
             name="photoPath"
-            [(ngModel)]="photoPath"
+            [(ngModel)]="employee.photoPath"
             class="form-control"
             id="photoPath"
           />
@@ -147,7 +174,7 @@
         </div>
         <div class="form-group">
           <img
-          [src]="photoPath"
+          [src]="employee.photoPath"
           height='200'
           width='200'
           *ngIf='previewPhoto'>
@@ -159,8 +186,12 @@
         >{{previewPhoto? "Hide":"Show"}} Preview</button>
     </div>
     <div class="panel-footer">
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button
+      [disabled]="workerForm.invalid"
+      type="submit" class="btn btn-primary">Save</button>
     </div>
   </div>
 </form>
-{{ workerForm.value | json }}
+form model :{{ workerForm.value | json }}
+<br>
+employee model: {{ employee | json }}
