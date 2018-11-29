@@ -11,6 +11,7 @@ import { Employee } from '../../models/employee.model';
 })
 export class CreateEmployeeComponent implements OnInit {
   previewPhoto = false;
+  email2 =  '';
   datePickerConfig: Partial<BsDatepickerConfig>;
   employee: Employee = {
     id: null,
