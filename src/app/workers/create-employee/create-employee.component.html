@@ -1,3 +1,6 @@
+form model :{{ workerForm.value | json }}
+<br>
+employee model: {{ employee | json }}
 <form
 #workerForm="ngForm"
 ngNativeValidate
@@ -47,7 +50,6 @@ ngNativeValidate
         class='help-block'
         *ngIf="email.errors?.email ">Email1 invalid</span>
       </div>
-      
       <!-- phone number -->
       <div class="form-group"
       [class.has-error]="phoneNumber.invalid">
@@ -130,32 +132,51 @@ ngNativeValidate
         </div>
         <span
         class='help-block'
-        *ngIf="gender.invalid && gender.touched">gender wymagany</span>
+        *ngIf="gender.invalid && gender.touched">
+        gender wymagany
+      </span>
       </div>
-      <!-- active -->
-      <div class="form-group">
+      <!-- Is active -->
+      <div class="form-group" >
         <div class="form-control">
-          <label class="checkbox-inline">
+          <label class="checkbox-inline control-label">
             <input
+            #isActive='ngModel'
             type="checkbox"
             name="isActive"
             [(ngModel)]="employee.isActive" /> Is
             Active
           </label>
-        </div>
+        </div>>
       </div>
       <!-- Department -->
-      <div class="form-group">
-        <label for="department"> Department </label>
+      <div class="form-group"
+      [class.has-error]='department.touched && department.invalid'>
+        <label for="department"
+        class="control-label"> Department </label>
         <select
+        appSelectValidator
+        #department='ngModel'
         class="form-control"
         id="department"
         name="department"
         [(ngModel)]="employee.department">
+        <!-- <option disabled [ngValue]='null'>select department</option> -->
+        <option value='-1'>select department</option>
         <option
         *ngFor='let dept of departments'
         [value]='dept.id'>{{dept.name}}</option>
         </select>
+        <!-- <span
+        class='help-block'
+        *ngIf="department.invalid && department.touched">
+        department wymagany
+      </span> -->
+      <span
+        class='help-block'
+        *ngIf="department.touched && department.errors?.defaultSelected">
+        department z validatora wymagany
+      </span>
       </div>
        <!-- Date of Birth -->
        <div class="row">
