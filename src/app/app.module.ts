@@ -9,11 +9,14 @@ import { AppComponent } from './app.component';
 import { ListEmployeesComponent } from './workers/employess/list-employees.component';
 import { CreateEmployeeComponent } from './workers/create-employee/create-employee.component';
 import { SelectReqValidatorDirective } from './shared/select-required-validator.directive';
+import { ConfirmEqual } from './shared/confirm-eq-validator.directive';
+import { PasswordsComponent } from './passwords/passwords.component';
 
 
 const appRoutes: Routes = [
 { path: 'list', component: ListEmployeesComponent },
 { path: 'create', component: CreateEmployeeComponent },
+{ path: 'password', component: PasswordsComponent },
 { path: '', redirectTo: '/list', pathMatch: 'full' },
 {path: '**',  redirectTo: '/list', pathMatch: 'full'}
 ];
@@ -23,7 +26,9 @@ const appRoutes: Routes = [
     AppComponent,
     ListEmployeesComponent,
     CreateEmployeeComponent,
-    SelectReqValidatorDirective
+    SelectReqValidatorDirective,
+    ConfirmEqual,
+    PasswordsComponent
   ],
   imports: [
     BrowserModule,

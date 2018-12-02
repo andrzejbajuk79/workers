@@ -22,9 +22,10 @@ export class CreateEmployeeComponent implements OnInit {
     contactPreference: null,
     dateOfBirth: null,
     // department: null,
-     department: '-1',
+     department: 'select',
     isActive: null,
-    photoPath: null
+    photoPath: null,
+
   };
 
   departments: Department[] = [
