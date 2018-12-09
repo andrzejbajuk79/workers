@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Employee } from '../../models/employee.model';
+import { EmployeeService } from '../../services/employee.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -7,45 +9,37 @@ import { Employee } from '../../models/employee.model';
   templateUrl: './list-employees.component.html',
   styleUrls: ['./list-employees.component.css']
 })
-export class ListEmployeesComponent implements OnInit {
-  employees: Employee[] = [
-    {
-      id: 1,
-      name: 'Mark',
-      gender: 'Male',
-      contactPreference: 'Email',
-      email: 'mark@pragimtech.com',
-      dateOfBirth: new Date('10/25/1988'),
-      department: 'IT',
-      isActive: true,
-      photoPath: 'assets/images/mark.png'
-    },
-    {
-      id: 2,
-      name: 'Mary',
-      gender: 'Female',
-      contactPreference: 'Phone',
-      phoneNumber: 2345978640,
-      dateOfBirth: new Date('11/20/1979'),
-      department: 'HR',
-      isActive: true,
-      photoPath: 'assets/images/mary.png'
-    },
-    {
-      id: 3,
-      name: 'John',
-      gender: 'Male',
-      contactPreference: 'Phone',
-      phoneNumber: 5432978640,
-      dateOfBirth: new Date('3/25/1976'),
-      department: 'IT',
-      isActive: false,
-      photoPath: 'assets/images/john.png'
-    },
-  ];
-  constructor() { }
+export class ListEmployeesComponent implements OnInit{
+  employees: Employee[] ;
+  empToDisplay: Employee;
+  dataFromChild: Employee;
+  private arrayIndex = 1;
+
+  constructor(
+    private _router: Router,
+    private employeeService: EmployeeService
+  ) { }
 
   ngOnInit() {
+    this.employees = this.employeeService.getEmployees();
   }
 
+  nextEmployee(): void {
+    this.empToDisplay = this.employees[2];
+    if( this.arrayIndex <= 2 ) {
+      this.empToDisplay = this.employees[this.arrayIndex];
+      this.arrayIndex++;
+    } else {
+        this.empToDisplay = this.employees[1];
+        this.arrayIndex = 1;
+    }
+}
+
+handleNotify(e: Employee) {
+  this.dataFromChild = e;
+}
+onClick(employee: Employee) {
+  console.log(employee);
+  this._router.navigate(['/employees', employee.id]);
+}
 }

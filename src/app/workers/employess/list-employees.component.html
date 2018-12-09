@@ -1,73 +1,18 @@
-<div class="panel panel-primary" *ngFor="let employee of employees">
-<div class="panel-heading">
-  <h3 class="panel-title">{{employee.name}}</h3>
-</div>
-  <div class="panel-body gallery">
-    <div class="COL-XS-10">
-      <div class="row">
-        <div class="col-xs-4">
-          <img class='img-crop'  [src]='employee.photoPath' alt="">
-        </div>
-        <div class="col-xs-6">
-          <div class="row vertical-align ">
-            <div class="col-xs-6">
-              Gender
-            </div>
-            <div class="col-xs-6">
-              :{{employee.gender}}
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-xs-6">
-                Date of Birth
-              </div>
-              <div class="col-xs-6">
-                : {{employee.dateOfBirth | date}}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6">
-                Contact Preference
-              </div>
-              <div class="col-xs-6">
-                : {{employee.contactPreference}}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6">
-                Phone
-              </div>
-              <div class="col-xs-6">
-                : {{employee.phoneNumber}}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6">
-                Email
-              </div>
-              <div class="col-xs-6">
-                : {{employee.email}}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6">
-                Department
-              </div>
-              <div class="col-xs-6">
-                : {{employee.department}}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6">
-                Is Active
-              </div>
-              <div class="col-xs-6">
-                : {{employee.isActive}}
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
+<h3 *ngIf="dataFromChild">
+  {{ dataFromChild?.name + " " + dataFromChild?.gender }}
+</h3>
+<div *ngFor="let employee of employees">
+  <div (click)="onClick(employee)" class='pointerCursor'>
+    <app-display-employee
+      [employee]="employee"
+      (notify)="handleNotify($event)"
+    ></app-display-employee>
   </div>
-
 </div>
+<!--
+  <button (click)="nextEmployee()" class="btn btn-primary">Next</button>
+  <br>
+  <br>
+
+      <app-display-employee [employee]="empToDisplay"></app-display-employee>
+-->

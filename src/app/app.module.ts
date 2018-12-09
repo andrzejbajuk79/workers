@@ -11,12 +11,21 @@ import { CreateEmployeeComponent } from './workers/create-employee/create-employ
 import { SelectReqValidatorDirective } from './shared/select-required-validator.directive';
 import { ConfirmEqual } from './shared/confirm-eq-validator.directive';
 import { PasswordsComponent } from './passwords/passwords.component';
+import { EmployeeService } from './services/employee.service';
+import { DisplayEmployeeComponent } from './workers/display-employee/display-employee.component';
+import { CraeteEmployeeCanDeactivateService } from './services/craete-employee-can-deactivate.service';
+import { EmployeeDetailsComponent } from './workers/employee-details/employee-details.component';
 
 
 const appRoutes: Routes = [
 { path: 'list', component: ListEmployeesComponent },
-{ path: 'create', component: CreateEmployeeComponent },
+{
+  path: 'create',
+ component: CreateEmployeeComponent,
+ canDeactivate: [CraeteEmployeeCanDeactivateService]
+},
 { path: 'password', component: PasswordsComponent },
+{ path: 'employees/:id', component: EmployeeDetailsComponent },
 { path: '', redirectTo: '/list', pathMatch: 'full' },
 {path: '**',  redirectTo: '/list', pathMatch: 'full'}
 ];
@@ -28,7 +37,11 @@ const appRoutes: Routes = [
     CreateEmployeeComponent,
     SelectReqValidatorDirective,
     ConfirmEqual,
-    PasswordsComponent
+    PasswordsComponent,
+    DisplayEmployeeComponent,
+    EmployeeDetailsComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -37,7 +50,7 @@ const appRoutes: Routes = [
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [EmployeeService, CraeteEmployeeCanDeactivateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,10 +7,7 @@ import { Employee } from '../models/employee.model';
   styleUrls: ['./passwords.component.css']
 })
 export class PasswordsComponent implements OnInit {
-  confirmPassword = '';
-  password = '';
-  previewPhoto = false;
-  email2 =  '';
+
   employee: Employee = {
     id: null,
     name: null,
@@ -23,10 +20,10 @@ export class PasswordsComponent implements OnInit {
      department: 'select',
     isActive: null,
     photoPath: null,
-    password : '';
-    confirmPassword: '';
-
-  constructor() { },
+    password : '',
+    confirmPassword: ''
+  };
+  constructor() { }
 
   ngOnInit() {
   }
